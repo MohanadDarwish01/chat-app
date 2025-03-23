@@ -1,0 +1,26 @@
+#layout{
+    flex-direction: row !important;
+
+    @media screen and (max-width:768px) {
+        flex-direction: column !important;
+    }
+
+    #Outlet{
+
+        width: 380px;
+        height: 100vh;
+        background-color: var(--mainGray);
+
+        @media screen and (max-width:768px) {
+            height: -webkit-fill-available;
+            width: 100%;
+        }
+    }
+
+    #content{
+        display: block;
+        @media screen and (max-width:768px) {
+            display: none;
+        }
+    }
+}
