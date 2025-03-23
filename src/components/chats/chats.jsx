@@ -3,7 +3,33 @@ import style from './chats.module.css'
 import ChatMessage from './chatMessage'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import PinedUser from './pinedUser'
+import { useEffect, useState } from 'react'
+import { collection, onSnapshot } from 'firebase/firestore'
+import db from '../../firebase'
 export default function Chats() {
+
+
+    const [chats, setChats] = useState([]);
+    
+
+    
+
+    useEffect(() => {
+        
+        onSnapshot(collection(db, "users"), (users) => {
+            let final = [];
+            users.forEach((user) => {
+                let user_obj = { ...user.data(), documentId: user.id }
+                final.push(user_obj)
+            })
+           setChats(final);
+        });
+        
+    }, [])
+
+
+
+
     return (
         <div className=' col-12 p-3 h-100 d-flex flex-column'>
             <h5>Chats</h5>
@@ -17,8 +43,7 @@ export default function Chats() {
                     spaceBetween={20}
                     loop={true}
                     slidesPerView={4}
-                    onSlideChange={() => console.log('slide change')}
-                    onSwiper={(swiper) => console.log(swiper)}
+
                 >
                     <SwiperSlide><PinedUser /></SwiperSlide>
                     <SwiperSlide><PinedUser /></SwiperSlide>
@@ -31,17 +56,13 @@ export default function Chats() {
             <h6 className=' mt-2'>Recent</h6>
             <div id={style.messages}>
 
-                <ChatMessage isActive={true} />
-                <ChatMessage statusColor={'red'} />
-                <ChatMessage />
-                <ChatMessage />
-                <ChatMessage />
-                <ChatMessage />
-                <ChatMessage />
-                <ChatMessage />
-                <ChatMessage />
-                <ChatMessage />
-                <ChatMessage />
+                {
+                    chats.map((el) => (
+                        <ChatMessage key={el.documentId} statusColor={'red'} userName={el.name} />
+                    ))
+                }
+
+
 
             </div>
 

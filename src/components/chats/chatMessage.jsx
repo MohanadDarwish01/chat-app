@@ -9,7 +9,7 @@ export default function ChatMessage(props) {
             <span style={{background: props.statusColor ? props.statusColor : '#1ac445' }}></span>
         </div>
         <div id={style.messageInfo}>
-            <h5>User Name</h5>
+            <h5>{props.userName}</h5>
             <p>The last message ...</p>
         </div>
         <div id={style.time}>
