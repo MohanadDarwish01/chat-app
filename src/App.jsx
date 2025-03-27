@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import MainLayout from './mainLayouts/MainLayout'
 import { usepaths } from './store'
+import LoginPage from './pages/loginPage';
 
 function App() {
   const { paths } = usepaths();
@@ -24,7 +25,7 @@ function App() {
 
         {/* Layout */}
         <Route path='/'>
-          <Route path='login' element={<h2>Login Page</h2>} />
+          <Route path='login' element={<LoginPage />} />
           <Route path='register' element={<h2>Register Page</h2>} />
           <Route path='*' element={<h2>404 Page</h2>} />
         </Route>

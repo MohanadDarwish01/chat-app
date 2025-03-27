@@ -8,11 +8,23 @@ import { collection, onSnapshot, query, where } from 'firebase/firestore'
 import db from '../../firebase'
 import { userRepo } from '../../data/repos/usersRepo'
 import { userCurrentId } from '../../store'
+import axios from 'axios'
 export default function Chats() {
 
  
     const [chats, setChats] = useState([]);
+    const firebaseApiKey = "AIzaSyB8-X5i3OQ0ymE-05BxWddGX2JW9fmsoTw";
 
+    const getUserDataByToken = async () => {
+        let userId = false;
+        let token = sessionStorage.getItem("Access Token");
+        await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${firebaseApiKey}` , {
+            idToken: token
+        }).then((res)=>{
+            userId = res.data.users[0].localId
+        })
+        return userId;
+    }
 
 
 
@@ -38,8 +50,11 @@ export default function Chats() {
     }
 
     useEffect(() => {
-
-        getChatsLive(userCurrentId);
+        getUserDataByToken().then((res)=>{
+            getChatsLive(res);
+            console.log(res)
+        });
+        
 
     }, [])
 

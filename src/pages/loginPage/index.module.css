@@ -1,0 +1,149 @@
+#side {
+    background-color: var(--mainGreen);
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+
+    img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.1;
+        z-index: 1;
+    }
+
+    h1 {
+        color: var(--mainWhite);
+        font-weight: 700;
+    }
+
+    p{
+        color: var(--mainWhite);
+        font-size: 16px;
+        text-align: center;
+        width: 60%;
+    }
+
+    button {
+        width: 50%;
+        height: 50px;
+        border-radius: 25px;
+        border: 2px solid var(--mainWhite);
+        outline: none;
+       background: transparent;
+        color: var(--mainWhite);
+        transition: 0.4s ease-in-out;
+
+        &:hover {
+            background-color: var(--mainMintgreen);
+        }
+
+        &:active {
+            background-color: var(--mainGreen);
+        }
+    }
+
+}
+
+#loginSide {
+    background-color: var(--mainWhite);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    #form {
+        width: 400px;
+        height: 350px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        
+
+        h1 {
+            color: var(--mainGreen);
+            font-weight: 700;
+        }
+
+
+        .field {
+            position: relative;
+
+            :nth-child(2) {
+                font-size: 12px;
+                position: absolute;
+                bottom: -10px;
+                left: 40px;
+                z-index: 2;
+                background-color: var(--mainWhite);
+                padding-inline: 10px;
+                border-radius: 10px;
+                color: red;
+            }
+
+            .input {
+                width: 100%;
+                height: 50px;
+                padding: 20px;
+                border-radius: 25px;
+                border: 2px solid var(--mainGray);
+                outline: none;
+                background-color: var(--mainGray);
+                color: var(--mainGreen);
+                z-index: 1;
+                transition: 0.4s ease-in-out;
+
+
+                &:focus {
+                    border: 2px solid var(--mainGreen);
+                }
+
+
+            }
+
+        }
+
+
+        button {
+            width: 100%;
+            height: 50px;
+            border-radius: 25px;
+            border: none;
+            outline: none;
+            background-color: var(--mainGreen);
+            color: var(--mainWhite);
+            transition: 0.4s ease-in-out;
+
+            &:hover {
+                background-color: var(--mainMintgreen);
+            }
+
+            &:active {
+                background-color: var(--mainGreen);
+            }
+        }
+
+
+        p{
+            text-align: center;
+            color: gray;
+
+            a{
+                text-decoration: none;
+                color: var(--mainGreen);
+                padding-left: 10px;
+                font-weight: 500;
+                transition: 0.4s ease-in-out;
+
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
+        }
+
+    }
+}
