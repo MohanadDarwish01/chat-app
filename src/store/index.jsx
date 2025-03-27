@@ -5,15 +5,28 @@ import { RiContactsFill, RiUser2Fill } from "react-icons/ri";
 import { create } from "zustand";
 import Chats from "../components/chats/chats";
 
+
+export const userCurrentId = "1";
+
+
 export const usepaths = create(() => ({
     paths: [
-        { path: "/profile", icon: <RiUser2Fill /> , element: <h1>Profine</h1> },
-        { path: "/chats", icon: <AiFillMessage /> , element: <Chats /> },
-        { path: "/groups", icon: <FaUserGroup /> , element: <h1>Groups</h1> },
-        { path: "/contact", icon: <RiContactsFill /> , element: <h1>Contact</h1> },
-        { path: "/settings", icon: <IoMdSettings /> , element: <h1>Settings</h1> },
-        
+        { path: "/profile", icon: <RiUser2Fill />, element: <h1>Profine</h1> },
+        { path: "/chats", icon: <AiFillMessage />, element: <Chats /> },
+        { path: "/groups", icon: <FaUserGroup />, element: <h1>Groups</h1> },
+        { path: "/contact", icon: <RiContactsFill />, element: <h1>Contact</h1> },
+        { path: "/settings", icon: <IoMdSettings />, element: <h1>Settings</h1> },
+
     ]
 
-}))
+}));
+
+
+export const useChat = create((set) => ({
+    chat_id: 0,
+    setOpenChat: (chat_id) => (set(() => ({ chat_id })))
+
+}));
+
+
 

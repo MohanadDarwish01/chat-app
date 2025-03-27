@@ -4,27 +4,43 @@ import ChatMessage from './chatMessage'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import PinedUser from './pinedUser'
 import { useEffect, useState } from 'react'
-import { collection, onSnapshot } from 'firebase/firestore'
+import { collection, onSnapshot, query, where } from 'firebase/firestore'
 import db from '../../firebase'
+import { userRepo } from '../../data/repos/usersRepo'
+import { userCurrentId } from '../../store'
 export default function Chats() {
 
-
+ 
     const [chats, setChats] = useState([]);
-    
 
-    
+
+
+
+    const getChatsLive = (user_id) => {
+        onSnapshot(
+            query(collection(db, "chats"), where("users", "array-contains", user_id))
+
+
+            , async (chats) => {
+                let final = [];
+                // console.log(chats.docs)
+
+                let promises = chats.docs.map(async (chat) => {
+                    let chat_obj = { ...chat.data(), documentId: chat.id };
+                    let reciever_id = chat_obj.users.find(el => el !== user_id);
+                    let userData = await userRepo.get_user_data(reciever_id)
+                    return {...chat_obj , name: userData.name};
+
+                })
+                final = await Promise.all(promises);
+                setChats(final);
+            });
+    }
 
     useEffect(() => {
-        
-        onSnapshot(collection(db, "users"), (users) => {
-            let final = [];
-            users.forEach((user) => {
-                let user_obj = { ...user.data(), documentId: user.id }
-                final.push(user_obj)
-            })
-           setChats(final);
-        });
-        
+
+        getChatsLive(userCurrentId);
+
     }, [])
 
 
@@ -58,7 +74,7 @@ export default function Chats() {
 
                 {
                     chats.map((el) => (
-                        <ChatMessage key={el.documentId} statusColor={'red'} userName={el.name} />
+                        <ChatMessage key={el.documentId} chat_id={el.documentId} statusColor={'red'} userName={el.name} />
                     ))
                 }
 
@@ -69,3 +85,5 @@ export default function Chats() {
         </div>
     )
 }
+
+
